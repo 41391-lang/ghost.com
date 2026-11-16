@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GhostDM 👻 — O chat em que você conversa sozinho</title>
+  <meta name="description" content="Paródia de aplicativo de direct onde Luna praticamente nunca responde. No grátis, é vácuo eterno. No Premium, 1 resposta a cada 10 mensagens.">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/ghost.svg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Container Principal do Aplicativo -->
+  <div id="app" class="app-container">
+
+    <!-- ========================================== -->
+    <!-- 1. TELA INICIAL (Boas-vindas / Apresentação) -->
+    <!-- ========================================== -->
+    <section id="view-home" class="view view-home" aria-labelledby="home-title">
+      <header class="home-hero">
+        <div class="logo-wrapper">
+          <img src="assets/images/ghostdm-logo.svg" alt="GhostDM Logo" class="brand-logo">
+        </div>
+        <p class="hero-tagline">O aplicativo de mensagens em que você conversa sozinho.</p>
+        <span class="hero-subtitle">Luna está online há horas. Isso não significa que ela vai te responder.</span>
+      </header>
+
+      <main class="home-content">
+        <!-- Card de Status do Plano Atual -->
+        <article class="card current-plan-card">
+          <div class="plan-header-row">
+            <span class="plan-badge-pill" id="home-plan-badge">Vácuo básico</span>
+            <span class="plan-price-label" id="home-plan-price">R$ 0,00</span>
+          </div>
+          <h2 class="card-title" id="home-plan-name">Plano Grátis</h2>
+          <p class="card-desc" id="home-plan-desc">A experiência completa de ser solenemente ignorado sem pagar um centavo.</p>
+          
+          <div class="plan-stats-preview">
+            <div class="stat-box">
+              <span class="stat-number" id="home-total-messages">0</span>
+              <span class="stat-label">Mensagens enviadas</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-number" id="home-luna-replies">0</span>
+              <span class="stat-label">Respostas da Luna</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Ações Principais -->
+        <div class="home-actions">
+          <button id="btn-open-chat" class="btn btn-primary btn-large" type="button">
+            <span class="btn-icon">💬</span>
+            <span>Abrir conversa com Luna</span>
+          </button>
+
+          <button id="btn-open-plans" class="btn btn-outline btn-large" type="button">
+            <span class="btn-icon">✨</span>
+            <span>Conhecer o GhostDM Premium</span>
+          </button>
+        </div>
+
+        <!-- Seção de Humor / Recursos -->
+        <div class="home-features-grid">
+          <div class="feature-item">
+            <div class="feature-icon">🔕</div>
+            <h3>Silêncio Ilimitado</h3>
+            <p>Envie quantas mensagens o seu coração mandar. O retorno não está previsto no contrato.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">👑</div>
+            <h3>Vácuo VIP</h3>
+            <p>No Premium, Luna manda 1 resposta monossilábica a cada 10 mensagens suas.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon">💾</div>
+            <h3>Histórico Salvo</h3>
+            <p>Seus vácuos ficam guardados no navegador para você lembrar de não mandar mais mensagem.</p>
+          </div>
+        </div>
+
+        <!-- Nota de Rodapé Escolar -->
+        <footer class="home-footer">
+          <p>GhostDM é uma paródia escolar satírica. Nenhuma mensagem real é enviada para terceiros.</p>
+        </footer>
+      </main>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 2. TELA DE CONVERSA (Direct com Luna)      -->
+    <!-- ========================================== -->
+    <section id="view-chat" class="view view-chat hidden" aria-label="Janela de Conversa">
+      
+      <!-- Cabeçalho do Chat -->
+      <header class="chat-header">
+        <div class="chat-header-left">
+          <button id="btn-back-home" class="btn-icon-only" type="button" title="Voltar ao início" aria-label="Voltar para tela inicial">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+
+          <div class="contact-profile">
+            <div class="avatar-wrapper">
+              <img src="assets/images/luna-avatar.svg" alt="Avatar da Luna" class="avatar-img">
+              <span class="online-dot" title="Luna está online"></span>
+            </div>
+            <div class="contact-meta">
+              <div class="contact-name-row">
+                <h1 class="contact-name">Luna</h1>
+                <span class="fictional-tag">Fictícia</span>
+              </div>
+              <p class="contact-status" id="chat-luna-status">Online há um tempo. Respondendo é outra história.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="chat-header-actions">
+          <!-- Botão indicador do Plano -->
+          <button id="btn-header-plan" class="badge-plan-btn" type="button" title="Ver ou alterar plano" aria-label="Gerenciar Plano">
+            <span class="plan-indicator-badge" id="chat-header-plan-badge">Vácuo básico</span>
+          </button>
+
+          <!-- Botão de limpar histórico -->
+          <button id="btn-header-clear" class="btn-icon-only danger" type="button" title="Limpar conversa e reiniciar" aria-label="Limpar conversa">
+            <img src="assets/icons/trash.svg" alt="Limpar histórico" class="action-svg-icon">
+          </button>
+        </div>
+      </header>
+
+      <!-- Barra de Progresso e Expectativa (Fixa sob o cabeçalho) -->
+      <aside class="progress-bar-strip" id="chat-progress-container" aria-live="polite">
+        <div class="progress-info-row">
+          <span class="progress-title" id="chat-progress-title">Respostas bloqueadas no plano grátis</span>
+          <span class="progress-counter" id="chat-progress-counter">0/10</span>
+        </div>
+        <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="chat-progress-aria">
+          <div class="progress-fill" id="chat-progress-fill" style="width: 0%;"></div>
+        </div>
+        <div class="progress-footer-row">
+          <span class="progress-hint" id="chat-progress-hint">Assine o Premium para receber 1 resposta a cada 10 mensagens</span>
+          <button id="btn-quick-upgrade" class="btn-text-action" type="button">Ativar Vácuo VIP</button>
+        </div>
+      </aside>
+
+      <!-- Histórico de Mensagens -->
+      <main class="chat-messages-container" id="chat-messages" tabindex="0" aria-label="Histórico de mensagens">
+        <!-- As mensagens serão inseridas dinamicamente pelo JavaScript -->
+      </main>
+
+      <!-- Notificação cômica do plano grátis -->
+      <div class="humor-ticker" id="chat-humor-ticker" aria-live="polite">
+        <span class="ticker-icon">👻</span>
+        <span class="ticker-text" id="chat-ticker-text">Enviado. Aguardando há aproximadamente uma eternidade.</span>
+      </div>
+
+      <!-- Barra Inferior de Envio -->
+      <footer class="chat-composer-footer">
+        <form id="chat-form" class="composer-form" autocomplete="off">
+          <div class="composer-input-wrapper">
+            <textarea 
+              id="chat-input" 
+              class="composer-textarea" 
+              placeholder="Escreva algo para ser ignorado..." 
+              rows="1" 
+              maxlength="500" 
+              aria-label="Mensagem para Luna"></textarea>
+          </div>
+
+          <button id="btn-send-message" class="btn-send" type="submit" title="Enviar mensagem (Enter)" aria-label="Enviar mensagem">
+            <img src="assets/icons/send.svg" alt="Enviar" class="send-icon">
+          </button>
+        </form>
+
+        <div class="composer-meta-row">
+          <span class="meta-tip">Pressione <kbd>Enter</kbd> para enviar • <kbd>Shift+Enter</kbd> para nova linha</span>
+          <span class="meta-counter" id="chat-total-counter">Total enviado: 0</span>
+        </div>
+      </footer>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- 3. MODAL DE ASSINATURA PREMIUM (Simulada)  -->
+    <!-- ========================================== -->
+    <div id="modal-premium" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-premium-title">
+      <div class="modal-card">
+        <button id="btn-close-modal-premium" class="modal-btn-close" type="button" aria-label="Fechar janela">
+          <img src="assets/icons/close.svg" alt="Fechar" class="close-icon">
+        </button>
+
+        <div class="modal-hero">
+          <div class="modal-icon-badge">👑</div>
+          <h2 id="modal-premium-title" class="modal-title">GhostDM Premium</h2>
+          <p class="modal-subtitle">Porque ser ignorado de graça já não era suficiente.</p>
+        </div>
+
+        <!-- Banner de Aviso Obrigatório da Atividade Escolar -->
+        <div class="school-disclaimer-banner">
+          <span class="disclaimer-icon">⚠️</span>
+          <p><strong>Aviso importante:</strong> Esta é uma demonstração escolar. A assinatura é totalmente simulada e nenhuma cobrança real será realizada.</p>
+        </div>
+
+        <div class="pricing-box">
+          <span class="pricing-label">Preço demonstrativo</span>
+          <div class="pricing-amount">
+            <span class="currency">R$</span>
+            <span class="value">9,90</span>
+            <span class="period">/ mês</span>
+          </div>
+        </div>
+
+        <!-- Lista de Benefícios -->
+        <ul class="benefits-list">
+          <li>
+            <img src="assets/icons/check.svg" alt="Incluído" class="check-icon">
+            <span><strong>1 resposta da Luna</strong> a cada 10 mensagens válidas enviadas por você.</span>
+          </li>
+          <li>
+            <img src="assets/icons/check.svg" alt="Incluído" class="check-icon">
+            <span><strong>Contador de expectativa</strong> em tempo real mostrando quanto falta para a resposta.</span>
+          </li>
+          <li>
+            <img src="assets/icons/check.svg" alt="Incluído" class="check-icon">
+            <span><strong>Selo exclusivo Vácuo VIP</strong> na conversa.</span>
+          </li>
+          <li>
+            <img src="assets/icons/check.svg" alt="Incluído" class="check-icon">
+            <span>Respostas curtas, vagas e desconcertantes cuidadosamente selecionadas.</span>
+          </li>
+        </ul>
+
+        <!-- Botões de Ação do Modal -->
+        <div class="modal-actions">
+          <button id="btn-confirm-premium" class="btn btn-primary btn-block" type="button">
+            Assinar Premium (Simulado)
+          </button>
+          
+          <button id="btn-revert-free" class="btn btn-secondary btn-block" type="button">
+            Voltar ao Plano Grátis (Vácuo Básico)
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 4. MODAL DE CONFIRMAÇÃO DE LIMPEZA         -->
+    <!-- ========================================== -->
+    <div id="modal-clear-confirm" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-clear-title">
+      <div class="modal-card modal-sm">
+        <div class="modal-hero">
+          <div class="modal-icon-badge danger">🗑️</div>
+          <h2 id="modal-clear-title" class="modal-title">Apagar conversa?</h2>
+          <p class="modal-subtitle">Apagar a conversa e começar do zero?</p>
+        </div>
+
+        <p class="clear-warning-text">
+          Isso apagará todo o histórico de mensagens e reiniciará os contadores locais de envio. Seu plano atual será mantido.
+        </p>
+
+        <div class="modal-actions-inline">
+          <button id="btn-cancel-clear" class="btn btn-secondary" type="button">Cancelar</button>
+          <button id="btn-confirm-clear" class="btn btn-danger" type="button">Sim, apagar tudo</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Scripts em Vanilla JS organizados conforme especificação -->
+  <script src="js/storage.js"></script>
+  <script src="js/plans.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
